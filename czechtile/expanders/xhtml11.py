@@ -125,6 +125,18 @@ class Obrazek(CzechtileExpander):
         # which created him -- this fact doesn't make reconstructing the macro
         # call very easy
 
+class Tabulka(CzechtileExpander):
+    def expand(self, node, format, node_map):
+        return self.expand_with_content(node, format, node_map, u'<table>', u'</table>')
+
+class TabulkaRadek(CzechtileExpander):
+    def expand(self, node, format, node_map):
+        return self.expand_with_content(node, format, node_map, u'<tr>', u'</tr>')
+
+class TabulkaStlpec(CzechtileExpander):
+    def expand(self, node, format, node_map):
+        return self.expand_with_content(node, format, node_map, u'<td>', u'</td>')
+
 map = ExpanderMap({
     nodes.DocumentNode: Document,
     nodes.TextNode: TextNodeExpander,
@@ -151,5 +163,8 @@ map = ExpanderMap({
     nodes.PevnaMedzera: entities.PevnaMedzera,
     nodes.Preskrtnute: Preskrtnute,
     nodes.Obrazek: Obrazek,
-    nodes.NovyRadek: NovyRadek
+    nodes.NovyRadek: NovyRadek,
+    nodes.Tabulka: Tabulka,
+    nodes.TabulkaRadek: TabulkaRadek,
+    nodes.TabulkaStlpec: TabulkaStlpec
 })

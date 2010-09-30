@@ -284,3 +284,28 @@ class NovyRadek(CzechtileMacro):
 
     def expand_to_nodes(self, *args):
         self.builder.append(nodes.NovyRadek(), move_actual=False)
+
+class Tabulka(CzechtileMacro):
+    name = 'tabulka'
+    help = '((tabulka radky))'
+
+    def expand_to_nodes(self, content):
+        node = nodes.Tabulka()
+        self.builder.append(node, move_actual=True)
+        parse(content, self.register_map, self.register, builder=self.builder, state=self.state)
+        self.builder.move_up()
+
+class TabulkaRadek(CzechtileMacro):
+    name = 'radek'
+    help = '((radek stlpce))'
+
+    def expand_to_nodes(self, content):
+        node = nodes.TabulkaRadek()
+        self.builder.append(node, move_actual=True)
+        parse(content, self.register_map, self.register, builder=self.builder, state=self.state)
+        self.builder.move_up()
+
+class TabulkaStlpec(CzechtileInlineMacro):
+    name = 'stlpec'
+    help = '((stlpec text))'
+    node = nodes.TabulkaStlpec

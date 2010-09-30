@@ -40,3 +40,7 @@ class Uvozovky(Node): pass
 class PevnaMedzera(Node): pass
 
 class Obrazek(Node): pass
+
+class Tabulka(Node): pass
+class TabulkaStlpec(Node): pass
+class TabulkaRadek(Node): pass

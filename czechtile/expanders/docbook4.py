@@ -108,6 +108,23 @@ class List(ListExpander):
 class ListItem(ListItemExpander):
     tag_map = {'tag': u'listitem', 'attrs': u''}
 
+class Tabulka(CzechtileExpander):
+    def expand(self, node, format, node_map):
+        return self.expand_with_content(node, format, node_map,
+          u'<informaltable><tgroup cols="%d"><tbody>' % \
+            # use the maximum number of columns present in the whole
+            # table tree as the `cols' attribute of `tgroup'
+            max([len(node.children[i].children) for i in \
+                 range(len(node.children))]),
+            u'</tbody></tgroup></informaltable>')
+
+class TabulkaRadek(CzechtileExpander):
+    def expand(self, node, format, node_map):
+        return self.expand_with_content(node, format, node_map, u'<row>', u'</row>')
+
+class TabulkaStlpec(CzechtileExpander):
+    def expand(self, node, format, node_map):
+        return self.expand_with_content(node, format, node_map, u'<entry>', u'</entry>')
 
 map = ExpanderMap({
     nodes.DocumentNode: Document,
@@ -131,5 +148,8 @@ map = ExpanderMap({
     nodes.FootNote: FootNote,
     nodes.PevnaMedzera: entities.PevnaMedzera,
     nodes.Preskrtnute: Preskrtnute,
-    nodes.Obrazek: Obrazek
+    nodes.Obrazek: Obrazek,
+    nodes.Tabulka: Tabulka,
+    nodes.TabulkaRadek: TabulkaRadek,
+    nodes.TabulkaStlpec: TabulkaStlpec
 })
